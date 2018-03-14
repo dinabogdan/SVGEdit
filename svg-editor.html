@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>SVG Editor</title>
+    <link href="svg_editor.css" rel="stylesheet" />
+
+    <!--                            JQUERY SCRIPTS                                      -->
+    <script src="jquery-1.7.js" type="text/javascript"></script>
+    <script src="jquery.svg.js" type="text/javascript"></script>
+    <script scr="jquery.svg.input.js" type="text/javascript"></script>
+    <script src="jquery.transit.js" type="text/javascript"></script>
+    <script src="svg-editor-script.js"></script>
+</head>
+<body>
+
+
+    <div id="svg_editor">
+        <h1>
+            SVG Editor
+        </h1>
+        <div id="workspace">
+            <svg id="svg">
+                <svg id="elements"></svg>
+                <line id="line" style="display:normal" stroke="red" fill="red"></line>
+                <rect id="rectangular" width="1" height="1" fill="transparent" stroke="green" 
+                     style="fill-opacity:0.1" ></rect>
+                <ellipse rx="1" ry="1" cx="1" cy="1" id="ellipse" style="stroke:red ; fill:none" transform="translate(0,0)"></ellipse>
+             
+                    <foreignObject id="x" x="1" y="1" width="1" height="1" style="display:normal" stroke="orange" fill="green" visibillity="hidden">
+                        <textArea id="textArea" rows="1" cols="1" border="1px" font-size="14" font-family="Arial" stroke="blue"
+                                  transform="translate(18,18)">
+                            Type the text here...
+                        </textArea>
+                    </foreignObject>
+              
+            </svg>
+        </div>
+    </div>   
+
+
+    <div id="toolbox" class="tools_panel">
+
+        <div class="tool_button" id="select_tool" title="Select Tool [S]" style="margin: 4px 4px 8px;">
+            <img class="svg_icon" 
+                 src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgY2xhc3M9InN2Z19pY29uIj48c3ZnIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+CgkgIDxwYXRoIHN0cm9rZT0iI2ZmZmZmZiIgZmlsbD0iIzAwMDAwMCIgaWQ9InN2Z18xMyIgZD0ibTcuMzgxNjgsMi40Njk0OGwwLjA3NTAyLDE3LjAzMjU4bDMuMzAwODMsLTIuNjI2MTdsMi42MjU2Niw1LjYyNzUxbDQuMjAxMDUsLTIuNjI2MTdsLTMuMzAwODIsLTQuODAyMTRsNC41NzYxNCwtMC4zNzUxN2wtMTEuNDc3ODcsLTEyLjIzMDQ0eiIvPgoJPC9zdmc+PC9zdmc+" />
+        </div>
+
+        <div class="tool_button" id="line_tool" title="Draw Line Tool [L]" data-curopt="#tool_line"
+             style="margin: 4px 4px 8px;">
+            <img class="svg_icon" 
+                 src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgY2xhc3M9InN2Z19pY29uIj48c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZpZXdCb3g9IjAgMCAyNCAyNCI+CgkgPGRlZnM+CgkgIDxsaW5lYXJHcmFkaWVudCBpZD0ic3ZnXzE2IiB4MT0iMC40NjQ4NCIgeTE9IjAuMTU2MjUiIHgyPSIwLjkzNzUiIHkyPSIwLjM5NDUzIj4KCSAgIDxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2YyZmVmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CgkgICA8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMxNDYwOWIiIHN0b3Atb3BhY2l0eT0iMSIvPgoJICA8L2xpbmVhckdyYWRpZW50PgoJICA8bGluZWFyR3JhZGllbnQgaWQ9InN2Z18xOSIgeDE9IjAuMTgzNTkiIHkxPSIwLjI2MTcyIiB4Mj0iMC43NzczNCIgeTI9IjAuNTY2NDEiPgoJICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZmZmZmIiBzdG9wLW9wYWNpdHk9IjEiLz4KCSAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZjZTU2NCIgc3RvcC1vcGFjaXR5PSIxIi8+CgkgIDwvbGluZWFyR3JhZGllbnQ+CgkgPC9kZWZzPgoJICA8bGluZSB4MT0iMC45OTg0NCIgeTE9IjEuNDkwNjciIHgyPSIxMi45NzY5MSIgeTI9IjIxLjE0MTQ5IiBpZD0ic3ZnXzUiIHN0cm9rZT0iIzAwMDAwMCIgZmlsbD0ibm9uZSIvPgoJICA8cGF0aCBkPSJtMTQuMDUyNzIsMTMuNjg3MzJsLTEuNDY0NTEsNy41MjYzMmw0LjAzNzY5LC02LjMyNTcxIiBpZD0ic3ZnXzYiIGZpbGw9IiNhMGEwYTAiIHN0cm9rZT0iIzAwMDAwMCIvPgoJICA8cGF0aCBkPSJtMTMuNjEyMTUsMTAuMjY1NjNjLTAuMzg1NjcsMS4wNTI1NyAtMC42MDcyMywyLjQwMjYxIC0wLjUwNDAzLDMuMTI1bDQuMzM0NjgsMS44MTQ1MmMwLjQ2MTUzLC0wLjMwNzY5IDEuNjEyOSwtMS43MTM3MSAxLjYxMjksLTIuNTIwMTYiIGlkPSJzdmdfNyIgZmlsbD0idXJsKCNzdmdfMTkpIiBzdHJva2U9IiMwMDAwMDAiLz4KCSAgPHBhdGggZD0ibTE2LjYxMzM1LDEuMDAwMjhsLTMuNjczMjUsOC42MDI0N2w3LjEwMjg1LDMuNDczMThsMy4xNzc4MywtNy4yMDU0OSIgaWQ9InN2Z184IiBmaWxsPSJ1cmwoI3N2Z18xNikiIHN0cm9rZT0iIzAwMDAwMCIvPgoJPC9zdmc+PC9zdmc+" />
+        </div>
+
+        <div class="tool_button" id="rectangular_tool" title="Draw Rectangular Tool [R]" data-curopt="#tool_rect"
+             style="margin: 4px 4px 8px;" >
+            <img class="svg_icon" 
+                 src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgY2xhc3M9InN2Z19pY29uIj48c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZpZXdCb3g9IjAgMCAyNCAyNCI+CiA8ZGVmcz4KICA8bGluZWFyR3JhZGllbnQgeTI9IjEiIHgyPSIxIiB5MT0iMC4xMDE1NiIgeDE9IjAuMzYzMjgiIGlkPSJzdmdfMiI+CiAgIDxzdG9wIHN0b3Atb3BhY2l0eT0iMSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgb2Zmc2V0PSIwIi8+CiAgIDxzdG9wIHN0b3Atb3BhY2l0eT0iMSIgc3RvcC1jb2xvcj0iIzNiN2U5YiIgb2Zmc2V0PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KIDwvZGVmcz4KICA8cmVjdCB0cmFuc2Zvcm09Im1hdHJpeCgxLCAwLCAwLCAxLCAwLCAwKSIgc3Ryb2tlPSIjMDAwMDAwIiBmaWxsPSJ1cmwoI3N2Z18yKSIgaWQ9InN2Z18xIiBoZWlnaHQ9IjEyIiB3aWR0aD0iMjAiIHk9IjUuNSIgeD0iMS41Ii8+CiA8L3N2Zz48L3N2Zz4=" />
+        </div>
+
+        <div class="tool_button" id="ellipse_tool" title="Draw Ellipse Tool [E]" data-curopt="#tool_ellipse"
+             style="margin: 4px 4px 8px;" >
+            <img class="svg_icon"
+                 src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgY2xhc3M9InN2Z19pY29uIj48c3ZnIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1NCA1NCI+CiA8ZGVmcz4KICA8bGluZWFyR3JhZGllbnQgeTI9IjEuMCIgeDI9IjEuMCIgeTE9IjAuMTg3NSIgeDE9IjAuMTcxODc1IiBpZD0ic3ZnXzQiPgogICA8c3RvcCBzdG9wLW9wYWNpdHk9IjEiIHN0b3AtY29sb3I9IiNmZmZmZmYiIG9mZnNldD0iMC4wIi8+CiAgIDxzdG9wIHN0b3Atb3BhY2l0eT0iMSIgc3RvcC1jb2xvcj0iI2ZmNjY2NiIgb2Zmc2V0PSIxLjAiLz4KICA8L2xpbmVhckdyYWRpZW50PgogPC9kZWZzPgogPGc+CiAgPGVsbGlwc2Ugc3Ryb2tlLW9wYWNpdHk9IjEiIGZpbGwtb3BhY2l0eT0iMSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2U9IiMwMDAwMDAiIGZpbGw9InVybCgjc3ZnXzQpIiBpZD0ic3ZnXzEiIHJ4PSIyMyIgcnk9IjE1IiBjeT0iMjciIGN4PSIyNyIvPgogPC9nPgo8L3N2Zz48L3N2Zz4=" />
+        </div>
+
+        <div class="tool_button" id="text_tool" title="Text Area Tool [T]" data-curopt="#tool_text" 
+             style="margin:4px 4px 8px;">
+            <img class="svg_icon"
+                 src="data:image/svg+xml;charset=utf-8;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgY2xhc3M9InN2Z19pY29uIj48c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZpZXdCb3g9IjAgMCAxNTggMTI4Ij4KCSAgPHRleHQgeD0iNTgiIHk9IjEyMCIgaWQ9InN2Z18xIiBmaWxsPSIjMDAwMDAwIiBzdHJva2U9Im5vbmUiIGZvbnQtc2l6ZT0iMTIwcHQiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsLW9wYWNpdHk9IjEiIHN0cm9rZS1vcGFjaXR5PSIxIiBmb250LXdlaWdodD0iYm9sZCI+QTwvdGV4dD4KCSAgPGxpbmUgeDE9IjEzNiIgeTE9IjciIHgyPSIxMzYiIHkyPSIxMjEiIGlkPSJzdmdfMiIgc3Ryb2tlPSIjMDAwMDAwIiBmaWxsPSJub25lIiBmaWxsLW9wYWNpdHk9IjEiIHN0cm9rZS1vcGFjaXR5PSIxIiBzdHJva2Utd2lkdGg9IjUiLz4KCSAgPGxpbmUgeDE9IjEyMCIgeTE9IjQiIHgyPSIxNTIiIHkyPSI0IiBpZD0ic3ZnXzMiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIiBmaWxsLW9wYWNpdHk9IjEiIHN0cm9rZS1vcGFjaXR5PSIxIi8+CgkgPGxpbmUgeDE9IjEyMCIgeTE9IjEyNCIgeDI9IjE1MiIgeTI9IjEyNCIgc3Ryb2tlPSIjMDAwMDAwIiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiIGZpbGwtb3BhY2l0eT0iMSIgc3Ryb2tlLW9wYWNpdHk9IjEiIGlkPSJzdmdfNCIvPgoJPC9zdmc+PC9zdmc+" />
+        </div>
+    </div>
+
+
+    <script>
+        $(document).ready(svgEditor);
+    </script>
+</body>
+</html>
